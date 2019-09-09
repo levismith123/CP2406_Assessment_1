@@ -3,9 +3,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
 
-    String roadSimulationChar = "-";
-    String carSimulationChar = "C ";
-
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -91,7 +88,7 @@ public class Main {
         }
     }
 
-        public static void build_road (String road, String carRoad, int carSegment, int trafficlightSegment,
+        private static void build_road (String road, String carRoad, int carSegment, int trafficlightSegment,
         String trafficlightColour) {
             String roadSimulationChar = "- ";
             String carSimulationChar = "C ";
@@ -124,7 +121,7 @@ public class Main {
 
 
         //Will check if the car is able to move and if it needs to change roads
-        public static boolean[] canMove ( int carSegment, String carRoad,int trafficlightSegment, int roadSegmentCount,
+        private static boolean[] canMove ( int carSegment, String carRoad,int trafficlightSegment, int roadSegmentCount,
         String trafficlightColour){
 
             //Checking if car is at a traffic light and isnt at the end of a road
