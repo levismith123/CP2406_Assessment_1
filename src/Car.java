@@ -10,7 +10,7 @@ public class Car {
     }
 
     public void resetSegment(){
-        this.segment = 0;
+        this.segment = 1;
     }
 
 

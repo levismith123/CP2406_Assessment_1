@@ -3,40 +3,45 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
 
+    String roadSimulationChar = "-";
+    String carSimulationChar = "C ";
+
+
     public static void main(String[] args) throws InterruptedException {
 
-        String roadSimulationChar = "-";
-        String carSimulationChar = "C ";
+
         int simulationStepSpeed = 1;
         Random numRand = new Random();
 
         //Initializing roads
         Road road = new Road();
-        road.setSegmentCount(9);
+        road.setSegmentCount(10);
 
         Road road2 = new Road();
-        road2.setSegmentCount(9);
+        road2.setSegmentCount(10);
 
         //Initializing traffic lights
         TrafficLight trafficlight = new TrafficLight();
-        trafficlight.setPosition(6);
+        trafficlight.setPosition(10);
+        trafficlight.setRoad("road");
         trafficlight.setColour("G ");
 
         TrafficLight trafficlight2 = new TrafficLight();
-        trafficlight2.setPosition(3);
+        trafficlight2.setPosition(10);
         trafficlight2.setColour("R ");
+        trafficlight2.setRoad("road2");
 
         //Initializing car
         Car car = new Car();
-        car.setSegment(0);
+        car.setSegment(1);
         car.setRoad("road");
 
         //Step for 20 seconds
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 30; i++) {
 
             //Randomize traffic lights
-            int trafficRand = numRand.nextInt(2)+1;
-            switch(trafficRand){
+            int trafficRand = numRand.nextInt(2) + 1;
+            switch (trafficRand) {
                 case 1:
                     trafficlight.setColour("R ");
                     break;
@@ -45,8 +50,10 @@ public class Main {
                     break;
             }
 
-            int trafficRand2 = numRand.nextInt(2)+1;
-            switch(trafficRand2){
+            build_road("road", car.getRoad(), car.getSegment(), trafficlight.getPosition(), trafficlight.getColour());
+
+            int trafficRand2 = numRand.nextInt(2) + 1;
+            switch (trafficRand2) {
                 case 1:
                     trafficlight2.setColour("R ");
                     break;
@@ -55,65 +62,92 @@ public class Main {
                     break;
             }
 
-            //Build road 1
-            for (int x = 0; x <= road.getSegmentCount(); x++) {
-                if (x == car.getSegment() && car.getRoad().equals("road")) {
-                    System.out.print(carSimulationChar);
-                } else if (x == trafficlight.getPosition()) {
-                    System.out.print(trafficlight.getColour());
-                } else {
-                    System.out.print(roadSimulationChar + ' ');
-                }
-            }
-            System.out.print(" ");
+            build_road("road2", car.getRoad(), car.getSegment(), trafficlight2.getPosition(), trafficlight2.getColour());
 
-            //Build road 2
-            for (int y = 0; y <= road2.getSegmentCount(); y++) {
-
-                if (y == car.getSegment() && car.getRoad().equals("road2")) {
-                    System.out.print(carSimulationChar);
-                } else if (y == trafficlight2.getPosition()) {
-                    System.out.print(trafficlight2.getColour());
-                } else {
-                    System.out.print(roadSimulationChar + ' ');
-                }
-            }
-
-            //Step time is 1 second
             TimeUnit.SECONDS.sleep(simulationStepSpeed);
             System.out.print("\n");
 
-            //Checking if car can move forward on road 1
+            //Checking if car can move on road 1
             if (car.getRoad().equals("road")) {
-                if (car.getSegment() != trafficlight.getPosition() - 1 && car.getSegment() != road.getSegmentCount()) {
+                boolean[] move = canMove(car.getSegment(), car.getRoad(), trafficlight.getPosition(), road.getSegmentCount(),
+                        trafficlight.getColour());
+                if (move[0] && !move[1]) {
                     car.move();
-
-                    //checking if car reached the end of road
-                } else if (car.getSegment() == road.getSegmentCount()) {
+                } else if (!move[0] && move[1]) {
                     car.setRoad("road2");
                     car.resetSegment();
 
-                } else {
-                    if (!trafficlight.getColour().equals("R ")) {
-                        car.move();
-                    }
-
                 }
-            } else {
+            }
 
-                //Checking if car can move forward on road 2
-                if (car.getSegment() != trafficlight2.getPosition() - 1 && car.getSegment() != road2.getSegmentCount()) {
+            //Checking if car can move on road 2
+            else {
+                boolean[] move = canMove(car.getSegment(), car.getRoad(), trafficlight.getPosition(), road.getSegmentCount(),
+                        trafficlight.getColour());
+                if (move[0] && !move[1]) {
                     car.move();
-                } else {
-
-                    //Checking if car has reached the end of road
-                    if(car.getSegment() != road2.getSegmentCount()){
-                        if(!trafficlight2.getColour().equals("R ")){
-                            car.move();
-                        }
-                    }
                 }
             }
         }
     }
-}
+
+        public static void build_road (String road, String carRoad, int carSegment, int trafficlightSegment,
+        String trafficlightColour) {
+            String roadSimulationChar = "- ";
+            String carSimulationChar = "C ";
+
+            if (carRoad.equals(road)) {
+
+                for (int x = 1; x <= 10; x++) {
+
+                    if (carSegment == x) {
+                        System.out.print(carSimulationChar);
+                    } else if (trafficlightSegment == x) {
+                        System.out.print(trafficlightColour);
+                    } else {
+                        System.out.print(roadSimulationChar);
+                    }
+                }
+            } else {
+                for (int x = 1; x <= 10; x++) {
+
+                    if (trafficlightSegment == x) {
+                        System.out.print(trafficlightColour);
+                    } else {
+                        System.out.print(roadSimulationChar);
+                    }
+                }
+            }
+            System.out.print(" ");
+        }
+
+
+
+        //Will check if the car is able to move and if it needs to change roads
+        public static boolean[] canMove ( int carSegment, String carRoad,int trafficlightSegment, int roadSegmentCount,
+        String trafficlightColour){
+
+            //Checking if car is at a traffic light and isnt at the end of a road
+            if (carSegment == trafficlightSegment - 1 && carSegment != roadSegmentCount) {
+
+                //if the traffic light isnt red the car can move
+                if (!trafficlightColour.equals("G ")) {
+                    return new boolean[]{false, false};
+                } else {
+                    return new boolean[]{true, false};
+                }
+            }
+
+            //Checking if the car is at the end of a road and isnt stopped by a light
+            else if (carSegment != trafficlightSegment - 1 && carSegment != roadSegmentCount) {
+                return new boolean[]{true, false};
+            }
+
+            //Checking if the car is at the end of the road and is on the first road
+            else if (carRoad.equals("road") && carSegment == roadSegmentCount) {
+                return new boolean[]{false, true};
+            } else {
+                return new boolean[]{false, false};
+            }
+        }
+    }

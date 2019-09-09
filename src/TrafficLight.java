@@ -3,6 +3,7 @@ public class TrafficLight {
     private String colour;
     private int rateOfChange;
     private int position;
+    private String roadName;
 
     //Setter and getter functions
     public void setColour(String colour) {
@@ -27,5 +28,13 @@ public class TrafficLight {
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    public void setRoad(String road){
+        this.roadName = road;
+    }
+
+    public String getRoad(){
+        return this.roadName;
     }
 }

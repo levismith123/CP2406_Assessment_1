@@ -7,14 +7,14 @@ class CarTest {
     @Test
     void carTest(){
         Car car = new Car();
-        car.setSegment(0);
-        assertEquals(0, car.getSegment());
-        
-        car.move();
+        car.setSegment(1);
         assertEquals(1, car.getSegment());
 
+        car.move();
+        assertEquals(2, car.getSegment());
+
         car.resetSegment();
-        assertEquals(0, car.getSegment());
+        assertEquals(1, car.getSegment());
 
         car.setRoad("road");
         assertEquals("road", car.getRoad());
