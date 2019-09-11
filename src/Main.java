@@ -37,28 +37,10 @@ public class Main {
         for (int i = 0; i < 30; i++) {
 
             //Randomize traffic lights
-            int trafficRand = numRand.nextInt(2) + 1;
-            switch (trafficRand) {
-                case 1:
-                    trafficlight.setColour("R ");
-                    break;
-                case 2:
-                    trafficlight.setColour("G ");
-                    break;
-            }
-
+            randomizeLight(numRand, trafficlight);
             build_road("road", car.getRoad(), car.getSegment(), trafficlight.getPosition(), trafficlight.getColour());
 
-            int trafficRand2 = numRand.nextInt(2) + 1;
-            switch (trafficRand2) {
-                case 1:
-                    trafficlight2.setColour("R ");
-                    break;
-                case 2:
-                    trafficlight2.setColour("G ");
-                    break;
-            }
-
+            randomizeLight(numRand, trafficlight2);
             build_road("road2", car.getRoad(), car.getSegment(), trafficlight2.getPosition(), trafficlight2.getColour());
 
             TimeUnit.SECONDS.sleep(simulationStepSpeed);
@@ -88,7 +70,19 @@ public class Main {
         }
     }
 
-        private static void build_road (String road, String carRoad, int carSegment, int trafficlightSegment,
+    private static void randomizeLight(Random numRand, TrafficLight trafficlight) {
+        int trafficRand = numRand.nextInt(2) + 1;
+        switch (trafficRand) {
+            case 1:
+                trafficlight.setColour("R ");
+                break;
+            case 2:
+                trafficlight.setColour("G ");
+                break;
+        }
+    }
+
+    private static void build_road (String road, String carRoad, int carSegment, int trafficlightSegment,
         String trafficlightColour) {
             String roadSimulationChar = "- ";
             String carSimulationChar = "C ";
