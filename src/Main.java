@@ -36,7 +36,7 @@ public class Main {
         //Step for 20 seconds
         for (int i = 0; i < 30; i++) {
 
-            //Randomize traffic lights
+            //Randomize traffic light 1
             int trafficRand = numRand.nextInt(2) + 1;
             switch (trafficRand) {
                 case 1:
@@ -49,6 +49,7 @@ public class Main {
 
             build_road("road", car.getRoad(), car.getSegment(), trafficlight.getPosition(), trafficlight.getColour());
 
+            //Randomise traffic light 2
             int trafficRand2 = numRand.nextInt(2) + 1;
             switch (trafficRand2) {
                 case 1:
@@ -88,6 +89,7 @@ public class Main {
         }
     }
 
+        //Generates each road with traffic light and a car, can only handle 1 traffic light and car per road
         private static void build_road (String road, String carRoad, int carSegment, int trafficlightSegment,
         String trafficlightColour) {
             String roadSimulationChar = "- ";
