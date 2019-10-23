@@ -1,5 +1,8 @@
-public class Road {
+package model;
 
+public abstract class Road {
+
+    private int segmentSize;
     private int segmentCount;
     private String connects;
 
@@ -17,5 +20,13 @@ public class Road {
 
     public String getConnects(){
         return this.connects;
+    }
+
+    public int getSegmentSize(){
+        return this.segmentSize;
+    }
+
+    public void setSegmentSize(int size){
+        this.segmentSize = size;
     }
 }
