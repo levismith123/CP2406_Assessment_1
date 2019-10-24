@@ -1,10 +1,16 @@
 package model;
 
-public abstract class Road {
+public class Road {
 
-    private int segmentSize;
     private int segmentCount;
     private String connects;
+
+    Road(int segmentCount){
+        this.segmentCount = segmentCount;
+        Vehicles[] leftLane = new Vehicles[segmentCount];
+        Vehicles[] rightLane = new Vehicles[segmentCount];
+
+    }
 
     public void setSegmentCount(int segmentCount) {
         this.segmentCount = segmentCount;
@@ -23,10 +29,6 @@ public abstract class Road {
     }
 
     public int getSegmentSize(){
-        return this.segmentSize;
-    }
-
-    public void setSegmentSize(int size){
-        this.segmentSize = size;
+        return 50;
     }
 }

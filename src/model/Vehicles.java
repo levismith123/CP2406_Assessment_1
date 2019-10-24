@@ -6,19 +6,39 @@ public abstract class Vehicles {
     private int speed;
     private Road road;
     private int size;
+    private String lane;
 
-    public String getOrientation() {
-        return orientation;
-    }
-
-    public void setOrientation(String orientation) {
-        this.orientation = orientation;
-    }
 
     //Sets where the car is facing: north, south, east, or west
-    private String orientation;
+    private String direction;
+
+    Vehicles(Road road, String lane, int speed){
+        this.road = road;
+        this.speed = speed;
+        this.segment = 0;
+        this.lane = lane;
+    }
+
 
     //setters and getters
+    public Road getRoad() {
+        return road;
+    }
+
+    public void setRoad(Road road) {
+        this.road = road;
+    }
+
+
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
     public void setSegment(int segment){
         this.segment = segment;
     }
@@ -31,13 +51,10 @@ public abstract class Vehicles {
     public void setSpeed(int speed){
         this.speed = speed;
     }
-
     public int getSize(){
         return this.size;
     }
-    public void setSize(int size){
-        this.size = size;
-    }
+    public void setSize(int size){this.size = size;}
 
     //Will check if the car can move by working out how many segments its going to travel across and then work out if it
     //can move

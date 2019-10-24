@@ -1,36 +1,13 @@
 package model;
 
-public class Car {
+public class Car extends Vehicles {
 
-    private int segment;
-    private String road;
+    Car(Road road, int speed) {
+        super(road, speed);
+        setSize(1);
+        setSpeed(speed);
+        setSegment(0);
+        setRoad(road);
 
-
-    public void move(){
-
-        this.segment++;
     }
-
-    public void resetSegment(){
-        this.segment = 1;
-    }
-
-
-    //Setter and Getter methods
-    public void setSegment(int num){
-        this.segment = num;
-    }
-
-    public int getSegment(){
-        return this.segment;
-    }
-
-    public void setRoad(String name){
-        this.road = name;
-    }
-
-    public String getRoad(){
-        return this.road;
-    }
-
 }
