@@ -1,15 +1,35 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Road {
 
-    private int segmentCount;
+    private int segmentCount = 10;
+    private Vehicles[] leftLaneMove = new Vehicles[segmentCount];
+    private Vehicles[] rightLaneMove = new Vehicles[segmentCount];
     private String connects;
+    private ArrayList<Vehicles> leftLaneUpdate = new ArrayList<>();
+    private ArrayList<Vehicles> rightLaneUpdate = new ArrayList<>();
 
-    Road(int segmentCount){
-        this.segmentCount = segmentCount;
-        Vehicles[] leftLane = new Vehicles[segmentCount];
-        Vehicles[] rightLane = new Vehicles[segmentCount];
 
+
+    public Road(){
+    }
+
+    public Vehicles[] getLeftLaneMove() {
+        return leftLaneMove;
+    }
+
+    public Vehicles[] getRightLaneMove() {
+        return rightLaneMove;
+    }
+
+    public ArrayList<Vehicles> getLeftLaneUpdate() {
+        return leftLaneUpdate;
+    }
+
+    public ArrayList<Vehicles> getRightLaneUpdate() {
+        return rightLaneUpdate;
     }
 
     public void setSegmentCount(int segmentCount) {
@@ -30,5 +50,29 @@ public class Road {
 
     public int getSegmentSize(){
         return 50;
+    }
+
+    public void update(Vehicles vehicle) {
+        String lane = vehicle.getLane();
+        if (lane.equals("left")){
+            leftLaneMove[vehicle.getOldSegment()] = null;
+            leftLaneMove[vehicle.getSegment()] = vehicle;
+        }
+        else{
+            rightLaneMove[vehicle.getOldSegment()] = null;
+            rightLaneMove[vehicle.getSegment()] = vehicle;
+        }
+    }
+
+    public void newVehicle(Vehicles vehicle){
+        String lane = vehicle.getLane();
+        if(lane.equals("left")){
+            leftLaneUpdate.add(vehicle);
+            leftLaneMove[vehicle.getSegment()] = vehicle;
+        }
+        else{
+            rightLaneUpdate.add(vehicle);
+            rightLaneMove[vehicle.getSegment()] = vehicle;
+        }
     }
 }

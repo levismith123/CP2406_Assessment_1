@@ -1,7 +1,9 @@
 package Test;
 
 import model.Car;
+import model.Road;
 import org.junit.jupiter.api.Test;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,18 +11,16 @@ class CarTest {
 
     @Test
     void carTest(){
-        Car car = new Car();
-        car.setSegment(1);
-        assertEquals(1, car.getSegment());
+        Road road = new Road();
+        Car car = new Car(road, "left", 50);
+        car.spawn();
+
+        assertEquals(car, road.getLeftLaneMove()[0]);
+        assertEquals(car, road.getLeftLaneUpdate().toArray()[0]);
+        assertTrue(road.getLeftLaneUpdate().contains(car));
 
         car.move();
-        assertEquals(2, car.getSegment());
-
-        car.resetSegment();
-        assertEquals(1, car.getSegment());
-
-        car.setRoad("road");
-        assertEquals("road", car.getRoad());
-
+        assertEquals(car, road.getLeftLaneMove()[1]);
+        assertNull(road.getLeftLaneMove()[0]);
     }
 }

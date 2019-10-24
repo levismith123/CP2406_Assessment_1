@@ -2,10 +2,26 @@ package model;
 
 public abstract class Vehicles {
 
+
+
+    private int oldSegment;
     private int segment;
     private int speed;
     private Road road;
     private int size;
+
+    public int getOldSegment() {
+        return oldSegment;
+    }
+
+    public String getLane() {
+        return lane;
+    }
+
+    public void setLane(String lane) {
+        this.lane = lane;
+    }
+
     private String lane;
 
 
@@ -63,8 +79,16 @@ public abstract class Vehicles {
         int segmentMoveCount = (this.road.getSegmentSize()/this.speed)/simulationSpeed;
 
         if (this.segment + segmentMoveCount < road.getSegmentCount()){
+            oldSegment = segment;
             segment = segment + segmentMoveCount;
+            this.road.update(this);
         }
 
+    }
+
+    //Calls the road to spawn a new vehicle
+    public void spawn(){
+        this.segment = 0;
+        road.newVehicle(this);
     }
 }
