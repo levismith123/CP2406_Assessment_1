@@ -57,6 +57,7 @@ public class Road {
         if (lane.equals("left")){
             leftLaneMove[vehicle.getOldSegment()] = null;
             leftLaneMove[vehicle.getSegment()] = vehicle;
+
         }
         else{
             rightLaneMove[vehicle.getOldSegment()] = null;

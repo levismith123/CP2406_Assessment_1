@@ -31,7 +31,13 @@ public abstract class Vehicles {
     Vehicles(Road road, String lane, int speed){
         this.road = road;
         this.speed = speed;
-        this.segment = 0;
+        if(lane.equals("left")){
+            this.segment = 0;
+        }
+
+        else{
+            this.segment = road.getSegmentCount();
+        }
         this.lane = lane;
     }
 
@@ -74,33 +80,36 @@ public abstract class Vehicles {
 
     //Will check if the car can move by working out how many segments its going to travel across and then work out if it
     //can move
-    public void move(){
+    public void move() {
         int simulationSpeed = 1;
-        int segmentMoveCount = (this.road.getSegmentSize()/this.speed)/simulationSpeed;
+        int segmentMoveCount = (this.road.getSegmentSize() / this.speed) / simulationSpeed;
         oldSegment = segment;
 
-        if (this.segment + segmentMoveCount < road.getSegmentCount()){
-            oldSegment = segment;
-            if(this.lane.equals("left")) {
-                segment = segment + segmentMoveCount;
+        if (this.lane.equals("left")) {
+            if (this.segment + segmentMoveCount < road.getSegmentCount()) {
+
+                segment += segmentMoveCount;
             }
-            else{
-                segment = segment - segmentMoveCount;
-            }
-            this.road.update(this);
+
         }
 
+        else {
+            if (this.segment - segmentMoveCount >= 0) {
+                segment -= segmentMoveCount;
+            }
+        }
+        this.road.update(this);
     }
 
     //Calls the road to spawn a new vehicle
-    public void spawn(Vehicles vehicle){
-        if(vehicle.getLane().equals("left")) {
+    public void spawn(){
+        if(this.getLane().equals("left")) {
             this.segment = 0;
             road.newVehicle(this);
         }
 
         else{
-            this.segment = 10;
+            this.segment = 9;
             road.newVehicle(this);
         }
     }
