@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CarTest {
 
+    //Tests both car and road to see if they are communicating
     @Test
     void carTest(){
         Road road = new Road();

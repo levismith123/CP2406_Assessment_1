@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Road {
 
+    //Controls the length of the road
     private int segmentCount = 10;
+
     private Vehicles[] leftLaneMove = new Vehicles[segmentCount];
     private Vehicles[] rightLaneMove = new Vehicles[segmentCount];
     private String connects;
     private ArrayList<Vehicles> leftLaneUpdate = new ArrayList<>();
     private ArrayList<Vehicles> rightLaneUpdate = new ArrayList<>();
-
-
 
     public Road(){
     }

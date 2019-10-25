@@ -77,18 +77,31 @@ public abstract class Vehicles {
     public void move(){
         int simulationSpeed = 1;
         int segmentMoveCount = (this.road.getSegmentSize()/this.speed)/simulationSpeed;
+        oldSegment = segment;
 
         if (this.segment + segmentMoveCount < road.getSegmentCount()){
             oldSegment = segment;
-            segment = segment + segmentMoveCount;
+            if(this.lane.equals("left")) {
+                segment = segment + segmentMoveCount;
+            }
+            else{
+                segment = segment - segmentMoveCount;
+            }
             this.road.update(this);
         }
 
     }
 
     //Calls the road to spawn a new vehicle
-    public void spawn(){
-        this.segment = 0;
-        road.newVehicle(this);
+    public void spawn(Vehicles vehicle){
+        if(vehicle.getLane().equals("left")) {
+            this.segment = 0;
+            road.newVehicle(this);
+        }
+
+        else{
+            this.segment = 10;
+            road.newVehicle(this);
+        }
     }
 }
