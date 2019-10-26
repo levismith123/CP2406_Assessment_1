@@ -18,17 +18,13 @@ public class Controller {
         rightCar.spawn();
         View.viewUpdate(road);
         TimeUnit.SECONDS.sleep(1);
-        System.out.println(leftCar.getSegment() + " " + rightCar.getSegment());
+
         for(int i = 0; i<road.getSegmentCount(); i++){
 
             leftCar.move();
             rightCar.move();
             View.viewUpdate(road);
             TimeUnit.SECONDS.sleep(1);
-            System.out.println(leftCar.getSegment() + " " + rightCar.getSegment());
-
         }
-
-
     }
 }

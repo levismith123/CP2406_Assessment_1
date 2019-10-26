@@ -9,6 +9,7 @@ public abstract class Vehicles {
     private int speed;
     private Road road;
     private int size;
+    private String lane;
 
     public int getOldSegment() {
         return oldSegment;
@@ -21,9 +22,6 @@ public abstract class Vehicles {
     public void setLane(String lane) {
         this.lane = lane;
     }
-
-    private String lane;
-
 
     //Sets where the car is facing: north, south, east, or west
     private String direction;
