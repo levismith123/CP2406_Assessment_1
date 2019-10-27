@@ -18,7 +18,52 @@ public class view {
     JFrame frame = new JFrame();
 
     public view(Road road){
-        frame.setLayout(new GridLayout(rows, cols));
+
+        //Setting up simulator screen
+        GridLayout mainScreen = new GridLayout(rows, cols);
+        BorderLayout screenLayout = new BorderLayout();
+
+
+        //Setting up alignments in the menu
+        JPanel simulator = new JPanel();
+        JPanel topSide = new JPanel();
+
+        //Simulator setup
+        simulator.setLayout(mainScreen);
+
+
+        //Topside setup
+        GridLayout topLayout = new GridLayout(1,2);
+        topSide.setLayout(topLayout);
+        JMenuBar menu = new JMenuBar();
+
+        JMenu city = new JMenu("City");
+        JMenuItem newMap = new JMenuItem("New");
+        JMenuItem save = new JMenuItem("Save");
+        JMenuItem create = new JMenuItem("create");
+        JMenuItem load = new JMenuItem("load");
+
+        city.add(newMap);
+        city.add(save);
+        city.add(create);
+        city.add(load);
+
+        JMenu simulatorMenu = new JMenu("Simulator");
+        JMenuItem run = new JMenuItem("Run");
+        JMenuItem stop = new JMenuItem("Stop");
+        simulatorMenu.add(run);
+        simulatorMenu.add(stop);
+
+        menu.add(city);
+        menu.add(simulatorMenu);
+        topSide.add(menu);
+
+        frame.setLayout(screenLayout);
+        frame.add(simulator, BorderLayout.CENTER);
+        frame.add(topSide, BorderLayout.NORTH);
+
+
+
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(WIDTH, HEIGHT);
 
@@ -28,7 +73,7 @@ public class view {
         for(int i = 0; i<rows; i++) {
             for(int a = 0; a<cols; a++) {
                 panel[a][i] = new JPanel();
-                frame.add(panel[a][i]);
+                simulator.add(panel[a][i]);
                 panel[a][i].setBackground(Color.white);
             }
         }
