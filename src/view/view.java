@@ -3,8 +3,10 @@ import model.Road;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class view {
+public class view implements ActionListener {
 
     final int HEIGHT = 300;
     final int WIDTH = 750;
@@ -16,6 +18,18 @@ public class view {
 
     Color carColor = Color.black;
     JFrame frame = new JFrame();
+
+    JMenuItem run = new JMenuItem("Run");
+    JMenuItem stop = new JMenuItem("Stop");
+
+    boolean simRun = true;
+
+    public boolean isSimRun() {
+        return simRun;
+    }
+
+
+
 
     public view(Road road){
 
@@ -49,8 +63,10 @@ public class view {
         city.add(load);
 
         JMenu simulatorMenu = new JMenu("Simulator");
-        JMenuItem run = new JMenuItem("Run");
-        JMenuItem stop = new JMenuItem("Stop");
+
+        run.addActionListener(this);
+        stop.addActionListener(this);
+
         simulatorMenu.add(run);
         simulatorMenu.add(stop);
 
@@ -58,9 +74,15 @@ public class view {
         menu.add(simulatorMenu);
         topSide.add(menu);
 
+        //Adding bottom side
+        JPanel bottomSide = new JPanel();
+        JLabel status = new JLabel("Ready");
+        bottomSide.add(status);
+
         frame.setLayout(screenLayout);
         frame.add(simulator, BorderLayout.CENTER);
         frame.add(topSide, BorderLayout.NORTH);
+        frame.add(bottomSide, BorderLayout.SOUTH);
 
 
 
@@ -116,4 +138,14 @@ public class view {
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        if(actionEvent.getSource() == run){
+            simRun = true;
+        }
+
+        else if(actionEvent.getSource() == stop){
+            simRun = false;
+        }
+    }
 }
