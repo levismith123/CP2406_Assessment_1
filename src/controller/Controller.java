@@ -23,7 +23,8 @@ public class Controller {
         TimeUnit.SECONDS.sleep(1);
         boolean run;
         while(true) {
-            System.out.println(View.isSimRun());
+
+            TimeUnit.MILLISECONDS.sleep(100);
             run = View.isSimRun();
 
             if(run) {
