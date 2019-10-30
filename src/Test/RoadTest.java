@@ -1,3 +1,7 @@
+package Test;
+
+import model.Car;
+import model.Road;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,8 +11,9 @@ class RoadTest {
         void roadTest(){
 
             Road road = new Road();
-            road.setSegmentCount(5);
-            assertEquals(5, road.getSegmentCount());
+            Car car = new Car(road, "left", 50);
+
+
 
             road.setConnects("road");
             assertEquals("road", road.getConnects());
