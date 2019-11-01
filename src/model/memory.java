@@ -20,10 +20,12 @@ public class memory {
         return fileName;
     }
 
-    public void memoryWrite(String message, String fileName) throws IOException{
+    public void memoryWrite(String fileName, int start, int end, Road road) throws IOException{
+
 
         this.fileName = fileName;
         csvWriter = new FileWriter(this.fileName);
+        String message = start + ", " + end + ", " + road.isVertical();
         csvWriter.write(message);
         csvWriter.flush();
         csvWriter.close();
@@ -37,12 +39,5 @@ public class memory {
         csvReader.read(line);
         System.out.println(line);
 
-    }
-
-    public static void main(String[] args) throws IOException {
-        memory example = new memory();
-        example.setFileName("maps/example.txt");
-        example.memoryWrite("test\ntest", example.getFileName());
-        example.memoryRead(example.fileName);
     }
 }

@@ -13,7 +13,15 @@ public class Road {
     private ArrayList<Vehicles> leftLaneUpdate = new ArrayList<>();
     private ArrayList<Vehicles> rightLaneUpdate = new ArrayList<>();
 
+
+
+    private boolean isVertical = false;
+
     public Road(){
+    }
+
+    public boolean isVertical() {
+        return isVertical;
     }
 
     public Vehicles[] getLeftLaneMove() {
@@ -52,6 +60,7 @@ public class Road {
         return 50;
     }
 
+    //Updates the representation of the vehicles on the road
     public void update(Vehicles vehicle) {
         String lane = vehicle.getLane();
         if (lane.equals("left")){
@@ -65,6 +74,7 @@ public class Road {
         }
     }
 
+    //Spawns a vehicle in the vehicle lists
     public void newVehicle(Vehicles vehicle){
         String lane = vehicle.getLane();
         if(lane.equals("left")){

@@ -1,10 +1,12 @@
 package view;
 import model.Road;
+import model.memory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class view implements ActionListener {
 
@@ -12,6 +14,8 @@ public class view implements ActionListener {
     final int WIDTH = 750;
     final int rows = 10;
     final int cols = 10;
+
+    model.memory fileMemory = new memory();
 
     JPanel[] rightPanelLane = new JPanel[rows];
     JPanel[] leftPanelLane = new JPanel[rows];
@@ -21,6 +25,8 @@ public class view implements ActionListener {
 
     JMenuItem run = new JMenuItem("Run");
     JMenuItem stop = new JMenuItem("Stop");
+    JMenuItem save = new JMenuItem("Save");
+    Road road;
 
     boolean simRun = true;
 
@@ -33,6 +39,7 @@ public class view implements ActionListener {
 
     public view(Road road){
 
+        this.road = road;
         //Setting up simulator screen
         GridLayout mainScreen = new GridLayout(rows, cols);
         BorderLayout screenLayout = new BorderLayout();
@@ -53,9 +60,11 @@ public class view implements ActionListener {
 
         JMenu city = new JMenu("City");
         JMenuItem newMap = new JMenuItem("New");
-        JMenuItem save = new JMenuItem("Save");
+
         JMenuItem create = new JMenuItem("create");
         JMenuItem load = new JMenuItem("load");
+
+        save.addActionListener(this);
 
         city.add(newMap);
         city.add(save);
@@ -140,12 +149,24 @@ public class view implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
+        int start = 0;
+        int end = start + this.road.getSegmentCount();
+
         if(actionEvent.getSource() == run){
             simRun = true;
         }
 
         else if(actionEvent.getSource() == stop){
             simRun = false;
+        }
+
+        else if(actionEvent.getSource() == save){
+
+            try {
+                fileMemory.memoryWrite("maps/map.txt", start, end, road);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
